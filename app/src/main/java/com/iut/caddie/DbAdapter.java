@@ -92,11 +92,11 @@ public class DbAdapter {
                 initialValues.put("produit", product);
                 db.insert(DATABASE_TABLE, null, initialValues);
             }
-            String row = "INSERT INTO Lists values(1,'Auchan');";
-            db.execSQL(row);
+            db.execSQL("INSERT INTO Lists values(1,'Auchan');");
             db.execSQL("INSERT INTO Commande values(1,1,2)");
-            db.execSQL("INSERT INTO Commande values(2,1,3)");
-            db.execSQL("INSERT INTO Commande values(3,1,1)");
+            db.execSQL("INSERT INTO Lists values(2,'Intermarché');");
+            db.execSQL("INSERT INTO Commande values(2,2,1)");
+            db.execSQL("INSERT INTO Commande values(3,2,2)");
         }
 
         @Override
@@ -282,7 +282,7 @@ public class DbAdapter {
         result = mDb.rawQuery("SELECT _id FROM Lists WHERE list LIKE ?", new String[] {listName});
         result.moveToFirst();
         int idList = result.getInt(result.getColumnIndexOrThrow("_id"));
-
-        mDb.execSQL("INSERT INTO Commande values(idProduct,idList, quantite)");
+        String sql = "INSERT INTO Commande values("+idProduct+","+idList+","+quantite+")";
+        mDb.execSQL(sql);
     }
 }
