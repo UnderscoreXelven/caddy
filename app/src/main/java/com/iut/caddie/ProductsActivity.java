@@ -24,9 +24,13 @@ import java.util.List;
 public class ProductsActivity extends AppCompatActivity {
 
     private ListView listView;
+<<<<<<< Updated upstream
 
     private EditText editText;
 
+=======
+    private String name = "";
+>>>>>>> Stashed changes
     private final List<String> products = new ArrayList<>();
 
     private ArrayAdapter<String> listAdapter;
@@ -52,6 +56,15 @@ public class ProductsActivity extends AppCompatActivity {
 
         if(addProduct){
             registerForContextMenu(listView);
+            name = getIntent().getStringExtra("listName");
+            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                    String title = products.get(position);
+                    System.out.println("Ajout du produit "+title+" pour la liste "+name);
+                }
+            });
+
         }
 
         bdd = new DbAdapter(this);
@@ -95,19 +108,4 @@ public class ProductsActivity extends AppCompatActivity {
         listAdapter.notifyDataSetChanged();
     }
 
-    @Override
-    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
-        super.onCreateContextMenu(menu, v, menuInfo);
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.context_menu, menu);
-    }
-
-    @Override
-    public boolean onContextItemSelected(MenuItem item) {
-
-        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
-        String title = listView.getItemAtPosition(info.position).toString();
-        System.out.println("Ajout du produit");
-        return true;
-    }
 }

@@ -23,6 +23,7 @@ public class ListActivity extends AppCompatActivity {
     private ListView listView;
 
     private List<String> products = new ArrayList<>();
+    private String name;
 
     private ArrayAdapter<String> listAdapter;
 
@@ -32,10 +33,11 @@ public class ListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         products = getIntent().getStringArrayListExtra("listProduits");
+        name = getIntent().getStringExtra("listName");
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
-        setTitle("La super liste de courses");
+        setTitle(name);
 
         listView = findViewById(R.id.list);
 
@@ -78,6 +80,7 @@ public class ListActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item){
         final Intent intent = new Intent(ListActivity.this, ProductsActivity.class);
         intent.putExtra("addProduct",true);
+        intent.putExtra("listName",name);
         startActivity(intent);
         return true;
     }

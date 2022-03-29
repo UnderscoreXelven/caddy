@@ -51,6 +51,7 @@ public class AllList extends AppCompatActivity {
                 }
                 final Intent intent = new Intent(AllList.this, ListActivity.class);
                 intent.putExtra("listProduits",array);
+                intent.putExtra("listName",list.get(position));
                 startActivity(intent);
 
             }
