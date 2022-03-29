@@ -122,6 +122,7 @@ public class ProductsActivity extends AppCompatActivity {
         switch(item.getItemId()) {
             case(R.id.remove_product):
                 bdd.deleteProduct(title);
+                listAdapter.notifyDataSetChanged();
             default:
                 return false;
         }
