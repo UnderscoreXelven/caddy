@@ -58,8 +58,8 @@ public class DbAdapter {
                     + "list text not null);";
 
     private static final String DATABASE_CREATE_COMMANDE =
-            "create table Commande (commandeId integer primary key, "
-                    + "productsId integer primary key,"
+            "create table Commande (productsId integer primary key , "
+                    + "listId integer primary key,"
                     + "quantite int not null,"
                     + " FOREIGN KEY (listId) REFERENCES Lists(_id),"
                     + " FOREIGN KEY (productsId) REFERENCES Products(_id));";
@@ -109,16 +109,35 @@ public class DbAdapter {
         }
     }
 
-    public void createCommande(String commandeName){
+    /**
+     * create new list
+     * @param listName
+     */
+    public void createLists(String listName){
         ContentValues initialValues = new ContentValues();
-        initialValues.put("commandeName", commandeName);
+        initialValues.put("list", listName);
         mDb.insert(DATABASE_TABLE, null, initialValues);
     }
 
-    public void insertProductsInCommande(int commandeId,int productsId){
+    /**
+     * create new commande on list with products
+     * @param productsId
+     * @param listId
+     * @param quantite
+     */
+    public void createCommande(int productsId,int listId,int quantite){
         ContentValues initialValues = new ContentValues();
-        initialValues.put(KEY_TITLE, commandeId);
+        initialValues.put("productsId", productsId);
         mDb.insert(DATABASE_TABLE, null, initialValues);
+        initialValues.put("listId", listId);
+        mDb.insert(DATABASE_TABLE, null, initialValues);
+        initialValues.put("quantite", quantite);
+        mDb.insert(DATABASE_TABLE, null, initialValues);
+    }
+
+    //Retourne l'id et le nom des listes de courses
+    public Cursor fetchList(){
+        return mDb.query("Lists", new String[] {"_id", "list"}, null, null, null, null, null);
     }
 
     /**
