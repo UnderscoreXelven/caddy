@@ -52,7 +52,6 @@ public class ProductsActivity extends AppCompatActivity {
         listView.setAdapter(listAdapter);
 
         if(addProduct){
-            registerForContextMenu(listView);
             name = getIntent().getStringExtra("listName");
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
@@ -62,6 +61,9 @@ public class ProductsActivity extends AppCompatActivity {
                 }
             });
 
+        }
+        else{
+            registerForContextMenu(listView);
         }
 
         bdd = new DbAdapter(this);
@@ -103,6 +105,26 @@ public class ProductsActivity extends AppCompatActivity {
         }
         c.close();
         listAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.context_menu, menu);
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+
+        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+        String title = listView.getItemAtPosition(info.position).toString();
+        switch(item.getItemId()) {
+            case(R.id.remove_product):
+                bdd.deleteProduct(title);
+            default:
+                return false;
+        }
     }
 
 }

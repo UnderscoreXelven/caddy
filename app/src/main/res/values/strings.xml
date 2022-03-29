@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Caddie</string>
     <string name="add_product">Ajouter un produit</string>
+    <string name="remove_product">Supprimer le produit</string>
 </resources>
