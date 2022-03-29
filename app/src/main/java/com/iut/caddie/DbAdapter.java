@@ -90,7 +90,7 @@ public class DbAdapter {
             for (String product: Products) {
                 ContentValues initialValues = new ContentValues();
                 initialValues.put("produit", product);
-                mDb.insert(DATABASE_TABLE, null, initialValues);
+                db.insert(DATABASE_TABLE, null, initialValues);
             }
         }
 
