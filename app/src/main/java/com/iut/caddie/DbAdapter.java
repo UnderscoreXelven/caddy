@@ -114,6 +114,12 @@ public class DbAdapter {
         mDb.insert(DATABASE_TABLE, null, initialValues);
     }
 
+    public void createProduct(String productName){
+        ContentValues initialValues = new ContentValues();
+        initialValues.put("Produit", productName);
+        mDb.insert(DATABASE_TABLE, null, initialValues);
+    }
+
     /**
      * create new commande on list with products
      * @param productsId

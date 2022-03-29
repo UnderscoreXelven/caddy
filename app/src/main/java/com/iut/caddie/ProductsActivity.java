@@ -4,7 +4,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.database.Cursor;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -13,6 +16,8 @@ import java.util.List;
 public class ProductsActivity extends AppCompatActivity {
 
     private ListView listView;
+
+    private EditText editText;
 
     private final List<String> products = new ArrayList<>();
 
@@ -26,18 +31,25 @@ public class ProductsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_products);
         setTitle("Liste de produits");
 
+        final Button btn= findViewById(R.id.button);
+        editText = findViewById(R.id.editText);
+
         listView = findViewById(R.id.listProducts);
-
         listAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1,products);
-
         listView.setAdapter(listAdapter);
 
         bdd = new DbAdapter(this);
-
         bdd.open();
-
         fillData();
 
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                bdd.createProduct(editText.getText().toString());
+                fillData();
+                listAdapter.notifyDataSetChanged();
+            }
+        });
     }
 
     void fillData(){
