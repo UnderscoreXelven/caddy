@@ -34,7 +34,7 @@ import android.util.Log;
  * of using a collection of inner classes (which is less scalable and not
  * recommended).
  */
-public class NotesDbAdapter {
+public class DbAdapter {
 
     public static final String KEY_TITLE = "title";
     public static final String KEY_ROWID = "_id";
@@ -83,7 +83,7 @@ public class NotesDbAdapter {
      *
      * @param ctx the Context within which to work
      */
-    public NotesDbAdapter(Context ctx) {
+    public DbAdapter(Context ctx) {
         this.mCtx = ctx;
     }
 
@@ -96,7 +96,7 @@ public class NotesDbAdapter {
      *         initialization call)
      * @throws SQLException if the database could be neither opened or created
      */
-    public NotesDbAdapter open() throws SQLException {
+    public DbAdapter open() throws SQLException {
         mDbHelper = new DatabaseHelper(mCtx);
         mDb = mDbHelper.getWritableDatabase();
         return this;
