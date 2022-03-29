@@ -2,6 +2,7 @@ package com.iut.caddie;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.ContextMenu;
@@ -11,6 +12,8 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+
+import com.google.android.material.navigation.NavigationBarView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,6 +51,21 @@ public class ProductsActivity extends AppCompatActivity {
         bdd.open();
 
         fillData();
+
+        NavigationBarView navigationBarView = findViewById(R.id.bottom_navigation);
+
+        navigationBarView.setOnItemSelectedListener(item -> {
+            switch(item.getItemId()) {
+                case(R.id.goto_allList):
+                    startActivity(new Intent(ProductsActivity.this, AllList.class));
+                    return true;
+                case(R.id.goto_products):
+                    startActivity(new Intent(ProductsActivity.this, ProductsActivity.class));
+                    return true;
+                default:
+                    return false;
+            }
+        });
 
     }
 

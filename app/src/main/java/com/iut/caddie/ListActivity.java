@@ -19,7 +19,7 @@ public class ListActivity extends AppCompatActivity {
 
     private ListView listView;
 
-    private final List<String> products = new ArrayList<>();
+    private List<String> products = new ArrayList<>();
 
     private ArrayAdapter<String> listAdapter;
 
@@ -28,9 +28,7 @@ public class ListActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        products.add("ketchup");
-        products.add("mayo");
-        products.add("moutarde");
+        products = getIntent().getStringArrayListExtra("listProduits");
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
@@ -56,12 +54,6 @@ public class ListActivity extends AppCompatActivity {
 
         navigationBarView.setOnItemSelectedListener(item -> {
             switch(item.getItemId()) {
-                case(R.id.goto_main):
-                    startActivity(new Intent(ListActivity.this, MainActivity.class));
-                    return true;
-                case(R.id.goto_list):
-                    startActivity(new Intent(ListActivity.this, ListActivity.class));
-                    return true;
                 case(R.id.goto_allList):
                     startActivity(new Intent(ListActivity.this, AllList.class));
                     return true;

@@ -46,9 +46,12 @@ public class AllList extends AppCompatActivity {
                 c.moveToFirst();
                 ArrayList array = new ArrayList<>();
                 while(!c.isAfterLast()){
-                    array.add(c.getString(c.getColumnIndexOrThrow("produit")) + c.getString(c.getColumnIndexOrThrow("quantite")));
+                    array.add(c.getString(c.getColumnIndexOrThrow("produit")) +" x"+ c.getString(c.getColumnIndexOrThrow("quantite")));
                     c.moveToNext();
                 }
+                final Intent intent = new Intent(AllList.this, ListActivity.class);
+                intent.putExtra("listProduits",array);
+                startActivity(intent);
 
             }
         });
@@ -57,12 +60,6 @@ public class AllList extends AppCompatActivity {
 
         navigationBarView.setOnItemSelectedListener(item -> {
             switch(item.getItemId()) {
-                case(R.id.goto_main):
-                    startActivity(new Intent(AllList.this, MainActivity.class));
-                    return true;
-                case(R.id.goto_list):
-                    startActivity(new Intent(AllList.this, ListActivity.class));
-                    return true;
                 case(R.id.goto_allList):
                     startActivity(new Intent(AllList.this, AllList.class));
                     return true;
