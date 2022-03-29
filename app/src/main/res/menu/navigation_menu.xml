@@ -3,7 +3,7 @@
         android:id="@+id/goto_allList"
         android:enabled="true"
         android:icon="@drawable/check_list"
-        android:title="AllListes"/>
+        android:title="Vos listes"/>
     <item
         android:id="@+id/goto_products"
         android:enabled="true"

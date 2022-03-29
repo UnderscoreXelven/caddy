@@ -4,6 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -43,10 +46,7 @@ public class ListActivity extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-                final Intent intent = new Intent(ListActivity.this, ProductsActivity.class);
-                intent.putExtra("addProduct",true);
-                startActivity(intent);
-                listAdapter.notifyDataSetChanged();
+                return;
             }
         });
 
@@ -66,4 +66,20 @@ public class ListActivity extends AppCompatActivity {
         });
 
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu){
+        final MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.context_menu,menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        final Intent intent = new Intent(ListActivity.this, ProductsActivity.class);
+        intent.putExtra("addProduct",true);
+        startActivity(intent);
+        return true;
+    }
+
 }
