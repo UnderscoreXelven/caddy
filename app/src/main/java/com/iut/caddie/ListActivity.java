@@ -12,7 +12,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
 import java.util.ArrayList;
@@ -72,7 +71,7 @@ public class ListActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
         final MenuInflater menuInflater = getMenuInflater();
-        menuInflater.inflate(R.menu.context_menu,menu);
+        menuInflater.inflate(R.menu.add_menu,menu);
         return true;
     }
 
