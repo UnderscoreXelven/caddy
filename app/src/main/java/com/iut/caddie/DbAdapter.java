@@ -93,6 +93,7 @@ public class DbAdapter {
                 db.insert(DATABASE_TABLE, null, initialValues);
             }
             String row = "INSERT INTO Lists values(1,'Auchan');";
+            db.execSQL(row);
         }
 
         @Override
