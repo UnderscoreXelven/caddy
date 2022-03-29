@@ -42,6 +42,13 @@ public class AllList extends AppCompatActivity {
         allList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                Cursor c = bdd.commandList(allList.getItemAtPosition(position).toString());
+                c.moveToFirst();
+                ArrayList array = new ArrayList<>();
+                while(!c.isAfterLast()){
+                    array.add(c.getString(c.getColumnIndexOrThrow("produit")) + c.getString(c.getColumnIndexOrThrow("quantite")));
+                    c.moveToNext();
+                }
 
             }
         });

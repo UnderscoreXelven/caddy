@@ -244,4 +244,14 @@ public class DbAdapter {
 
         return mDb.update(DATABASE_TABLE, args, KEY_ROWID + "=" + rowId, null) > 0;
     }
+
+    /**
+     * Retourne les éléments d'une liste de course
+     * @param listName nom d'une liste
+     */
+    public Cursor commandList(String listName){
+         return mDb.rawQuery("SELECT P.produit, C.quantite " +
+                "FROM Produits AS P INNER JOIN Commande AS C ON P._id = C.productsId INNER JOIN Lists AS L ON C.listId = L._id" +
+                " WHERE L.liste LIKE ?", new String[] {listName});
+    }
 }
