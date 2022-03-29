@@ -27,7 +27,8 @@ public class ListActivity extends AppCompatActivity {
         products.add("moutarde");
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_list);
+        setTitle("La super liste de courses");
 
         listView = findViewById(R.id.list);
 
