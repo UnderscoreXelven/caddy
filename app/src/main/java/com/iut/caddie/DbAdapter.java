@@ -123,6 +123,10 @@ public class DbAdapter {
         mDb.insert(DATABASE_TABLE, null, initialValues);
     }
 
+    public boolean deleteProduct(String productName){
+        return mDb.delete(DATABASE_TABLE, KEY_TITLE + "=" +"'" + productName + "'", null) > 0;
+    }
+
     /**
      * create new commande on list with products
      * @param productsId
