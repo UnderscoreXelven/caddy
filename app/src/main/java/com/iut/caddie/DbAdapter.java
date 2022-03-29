@@ -24,6 +24,9 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Simple notes database access helper class. Defines the basic CRUD operations
  * for the notepad example, and gives the ability to list all notes as well as
@@ -56,6 +59,10 @@ public class DbAdapter {
     private static final String DATABASE_NAME = "data";
     private static final String DATABASE_TABLE = "notes";
     private static final int DATABASE_VERSION = 2;
+    /**
+     *  Products data
+     */
+    private String[] Products = {"lait", "orange","chocolat","jambon","frite"};
 
     private final Context mCtx;
 
@@ -78,6 +85,18 @@ public class DbAdapter {
                     + newVersion + ", which will destroy all old data");
             db.execSQL("DROP TABLE IF EXISTS notes");
             onCreate(db);
+        }
+    }
+
+    /**
+     * insert produtcs data
+     * @param array products data
+     */
+    public void CreateProducts(String [] array){
+        for (String product: array) {
+            ContentValues initialValues = new ContentValues();
+            initialValues.put(KEY_TITLE, product);
+            mDb.insert(DATABASE_TABLE, null, initialValues);
         }
     }
 
