@@ -44,10 +44,12 @@ public class ProductsActivity extends AppCompatActivity {
         Cursor c = bdd.fetchAllNotes();
         c.moveToFirst();
         while(!c.isAfterLast()){
+            System.out.println("Coucou :)");
             products.add(c.getString(c.getColumnIndexOrThrow("produit")));
             c.moveToNext();
         }
         c.close();
+        System.out.println(products);
         listAdapter.notifyDataSetChanged();
     }
 }

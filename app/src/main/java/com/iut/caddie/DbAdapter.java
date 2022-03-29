@@ -39,7 +39,7 @@ import java.util.List;
  */
 public class DbAdapter {
 
-    public static final String KEY_TITLE = "title";
+    public static final String KEY_TITLE = "produit";
     public static final String KEY_ROWID = "_id";
 
     private static final String TAG = "NotesDbAdapter";
@@ -58,19 +58,20 @@ public class DbAdapter {
                     + "list text not null);";
 
     private static final String DATABASE_CREATE_COMMANDE =
-            "create table Commande (productsId integer primary key , "
-                    + "listId integer primary key,"
+            "create table Commande (productsId integer, "
+                    + "listId integer,"
                     + "quantite int not null,"
                     + " FOREIGN KEY (listId) REFERENCES Lists(_id),"
-                    + " FOREIGN KEY (productsId) REFERENCES Products(_id));";
+                    + " FOREIGN KEY (productsId) REFERENCES Products(_id),"
+                    + " PRIMARY KEY (productsId,listId));";
 
     private static final String DATABASE_NAME = "data";
-    private static final String DATABASE_TABLE = "notes";
+    private static final String DATABASE_TABLE = "Products";
     private static final int DATABASE_VERSION = 2;
     /**
      *  Products data
      */
-    private String[] Products = {"lait", "orange","chocolat","jambon","frite"};
+    private static String[] Products = {"lait", "orange","chocolat","jambon","frite"};
 
     private final Context mCtx;
 
@@ -86,6 +87,11 @@ public class DbAdapter {
             db.execSQL(DATABASE_CREATE_PRODUCTS);
             db.execSQL(DATABASE_CREATE_LISTS);
             db.execSQL(DATABASE_CREATE_COMMANDE);
+            for (String product: Products) {
+                ContentValues initialValues = new ContentValues();
+                initialValues.put("produit", product);
+                mDb.insert(DATABASE_TABLE, null, initialValues);
+            }
         }
 
         @Override
@@ -96,19 +102,6 @@ public class DbAdapter {
             onCreate(db);
         }
     }
-
-    /**
-     * insert produtcs data
-     * @param array products data
-     */
-    public void createProducts(String [] array){
-        for (String product: array) {
-            ContentValues initialValues = new ContentValues();
-            initialValues.put("produit", product);
-            mDb.insert(DATABASE_TABLE, null, initialValues);
-        }
-    }
-
     /**
      * create new list
      * @param listName
@@ -135,7 +128,10 @@ public class DbAdapter {
         mDb.insert(DATABASE_TABLE, null, initialValues);
     }
 
-    //Retourne l'id et le nom des listes de courses
+    /**
+     * Retourne l'id et le nom des listes de courses
+     * @return
+     */
     public Cursor fetchList(){
         return mDb.query("Lists", new String[] {"_id", "list"}, null, null, null, null, null);
     }
