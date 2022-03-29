@@ -47,8 +47,9 @@ public class NotesDbAdapter {
      * Database creation sql statement
      */
     private static final String DATABASE_CREATE =
-            "create table notes (_id integer primary key autoincrement, "
-                    + "title text not null);";
+            "create table Produits (_id integer primary key autoincrement, "
+                    + "produit text not null);"
+                    + "create table Produits (_id integer primary key autoincrement ";
 
     private static final String DATABASE_NAME = "data";
     private static final String DATABASE_TABLE = "notes";
