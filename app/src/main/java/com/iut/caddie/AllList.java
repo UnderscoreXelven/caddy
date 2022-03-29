@@ -26,7 +26,7 @@ public class AllList extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_all_list);
-
+        setTitle("Vos listes de courses");
         //Ouverture et instanciation de la BDD
         bdd = new DbAdapter(this);
         bdd.open();
@@ -42,6 +42,16 @@ public class AllList extends AppCompatActivity {
         allList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                Cursor c = bdd.commandList(allList.getItemAtPosition(position).toString());
+                c.moveToFirst();
+                ArrayList array = new ArrayList<>();
+                while(!c.isAfterLast()){
+                    array.add(c.getString(c.getColumnIndexOrThrow("produit")) +" x"+ c.getString(c.getColumnIndexOrThrow("quantite")));
+                    c.moveToNext();
+                }
+                final Intent intent = new Intent(AllList.this, ListActivity.class);
+                intent.putExtra("listProduits",array);
+                startActivity(intent);
 
             }
         });
@@ -50,12 +60,6 @@ public class AllList extends AppCompatActivity {
 
         navigationBarView.setOnItemSelectedListener(item -> {
             switch(item.getItemId()) {
-                case(R.id.goto_main):
-                    startActivity(new Intent(AllList.this, MainActivity.class));
-                    return true;
-                case(R.id.goto_list):
-                    startActivity(new Intent(AllList.this, ListActivity.class));
-                    return true;
                 case(R.id.goto_allList):
                     startActivity(new Intent(AllList.this, AllList.class));
                     return true;

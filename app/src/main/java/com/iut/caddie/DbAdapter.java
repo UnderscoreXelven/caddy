@@ -94,6 +94,9 @@ public class DbAdapter {
             }
             String row = "INSERT INTO Lists values(1,'Auchan');";
             db.execSQL(row);
+            db.execSQL("INSERT INTO Commande values(1,1,2)");
+            db.execSQL("INSERT INTO Commande values(2,1,3)");
+            db.execSQL("INSERT INTO Commande values(3,1,1)");
         }
 
         @Override
@@ -249,5 +252,15 @@ public class DbAdapter {
         args.put(KEY_TITLE, title);
 
         return mDb.update(DATABASE_TABLE, args, KEY_ROWID + "=" + rowId, null) > 0;
+    }
+
+    /**
+     * Retourne les éléments d'une liste de course
+     * @param listName nom d'une liste
+     */
+    public Cursor commandList(String listName){
+         return mDb.rawQuery("SELECT P.produit, C.quantite " +
+                "FROM Products AS P INNER JOIN Commande AS C ON P._id = C.productsId INNER JOIN Lists AS L ON C.listId = L._id" +
+                " WHERE L.list LIKE ?", new String[] {listName});
     }
 }

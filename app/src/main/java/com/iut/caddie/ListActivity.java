@@ -4,6 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -19,7 +22,7 @@ public class ListActivity extends AppCompatActivity {
 
     private ListView listView;
 
-    private final List<String> products = new ArrayList<>();
+    private List<String> products = new ArrayList<>();
 
     private ArrayAdapter<String> listAdapter;
 
@@ -28,9 +31,7 @@ public class ListActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        products.add("ketchup");
-        products.add("mayo");
-        products.add("moutarde");
+        products = getIntent().getStringArrayListExtra("listProduits");
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
@@ -45,8 +46,7 @@ public class ListActivity extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-                products.remove(position);
-                listAdapter.notifyDataSetChanged();
+                return;
             }
         });
 
@@ -54,12 +54,6 @@ public class ListActivity extends AppCompatActivity {
 
         navigationBarView.setOnItemSelectedListener(item -> {
             switch(item.getItemId()) {
-                case(R.id.goto_main):
-                    startActivity(new Intent(ListActivity.this, MainActivity.class));
-                    return true;
-                case(R.id.goto_list):
-                    startActivity(new Intent(ListActivity.this, ListActivity.class));
-                    return true;
                 case(R.id.goto_allList):
                     startActivity(new Intent(ListActivity.this, AllList.class));
                     return true;
@@ -72,4 +66,20 @@ public class ListActivity extends AppCompatActivity {
         });
 
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu){
+        final MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.context_menu,menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        final Intent intent = new Intent(ListActivity.this, ProductsActivity.class);
+        intent.putExtra("addProduct",true);
+        startActivity(intent);
+        return true;
+    }
+
 }
