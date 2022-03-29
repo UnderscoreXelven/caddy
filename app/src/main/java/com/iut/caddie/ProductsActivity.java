@@ -24,13 +24,10 @@ import java.util.List;
 public class ProductsActivity extends AppCompatActivity {
 
     private ListView listView;
-<<<<<<< Updated upstream
 
     private EditText editText;
 
-=======
     private String name = "";
->>>>>>> Stashed changes
     private final List<String> products = new ArrayList<>();
 
     private ArrayAdapter<String> listAdapter;
