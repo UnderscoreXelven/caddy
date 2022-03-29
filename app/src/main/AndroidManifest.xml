@@ -10,6 +10,18 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Caddie">
         <activity
+            android:name=".ListActivity"
+            android:exported="false">
+        </activity>
+        <activity
+            android:name=".AllList"
+            android:exported="false">
+        </activity>
+        <activity
+            android:name=".ProductsActivity"
+            android:exported="false">
+        </activity>
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
