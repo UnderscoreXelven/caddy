@@ -27,6 +27,10 @@ public class ProductsActivity extends AppCompatActivity {
 
         listView = findViewById(R.id.listProducts);
 
+        listAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1,products);
+
+        listView.setAdapter(listAdapter);
+
         bdd = new DbAdapter(this);
 
         bdd.open();
