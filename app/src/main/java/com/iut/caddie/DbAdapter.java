@@ -260,11 +260,29 @@ public class DbAdapter {
 
     /**
      * Retourne les éléments d'une liste de course
-     * @param listName nom d'une liste
+     * @param listName nom de la liste
      */
     public Cursor commandList(String listName){
          return mDb.rawQuery("SELECT P.produit, C.quantite " +
                 "FROM Products AS P INNER JOIN Commande AS C ON P._id = C.productsId INNER JOIN Lists AS L ON C.listId = L._id" +
                 " WHERE L.list LIKE ?", new String[] {listName});
+    }
+
+    /**
+     * Insertion dans la table commande à partir de noms
+     * @param listName nom de la liste
+     * @param product nom du produit
+     * @param quantite quantité du produit
+     */
+    public void insertAA(String listName, String product, int quantite){
+        Cursor result = mDb.rawQuery("SELECT _id FROM Products WHERE produit LIKE ?", new String[] {product});
+        result.moveToFirst();
+        int idProduct = result.getInt(result.getColumnIndexOrThrow("_id"));
+
+        result = mDb.rawQuery("SELECT _id FROM Lists WHERE list LIKE ?", new String[] {listName});
+        result.moveToFirst();
+        int idList = result.getInt(result.getColumnIndexOrThrow("_id"));
+
+        mDb.execSQL("INSERT INTO Commande values(idProduct,idList, quantite)");
     }
 }
