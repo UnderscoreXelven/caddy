@@ -46,10 +46,12 @@ public class DbAdapter {
     /**
      * Database creation sql statement
      */
-    private static final String DATABASE_CREATE =
+    private static final String DATABASE_CREATE_PRODUCTS =
             "create table Produits (_id integer primary key autoincrement, "
-                    + "produit text not null);"
-                    + "create table Produits (_id integer primary key autoincrement ";
+                    + "produit text not null);";
+    private static final String DATABASE_CREATE_LISTS =
+            "create table Lists (_id integer primary key autoincrement, "
+                    + "list_name text not null);";
 
     private static final String DATABASE_NAME = "data";
     private static final String DATABASE_TABLE = "notes";
@@ -66,7 +68,8 @@ public class DbAdapter {
         @Override
         public void onCreate(SQLiteDatabase db) {
 
-            db.execSQL(DATABASE_CREATE);
+            db.execSQL(DATABASE_CREATE_PRODUCTS);
+            db.execSQL(DATABASE_CREATE_LISTS);
         }
 
         @Override
