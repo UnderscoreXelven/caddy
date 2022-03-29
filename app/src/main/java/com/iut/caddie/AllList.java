@@ -25,11 +25,13 @@ public class AllList extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_all_list);
 
         //Ouverture et instanciation de la BDD
         bdd = new DbAdapter(this);
         bdd.open();
+
+        allList = findViewById(R.id.allList);
 
         listAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1,list);
 
