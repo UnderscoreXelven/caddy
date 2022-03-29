@@ -50,11 +50,16 @@ public class DbAdapter {
      * Database creation sql statement
      */
     private static final String DATABASE_CREATE_PRODUCTS =
-            "create table Produits (_id integer primary key autoincrement, "
+            "create table Products (_id integer primary key autoincrement, "
                     + "produit text not null);";
     private static final String DATABASE_CREATE_LISTS =
             "create table Lists (_id integer primary key autoincrement, "
                     + "list_name text not null);";
+    private static final String DATABASE_CREATE_COMMANDE =
+            "create table Lists (_id integer primary key autoincrement, "
+                    + "quantite int not null,"
+                    + " FOREIGN KEY (listId) REFERENCES Lists(_id),"
+                    + " FOREIGN KEY (productsId) REFERENCES Products(_id))";
 
     private static final String DATABASE_NAME = "data";
     private static final String DATABASE_TABLE = "notes";
@@ -77,6 +82,7 @@ public class DbAdapter {
 
             db.execSQL(DATABASE_CREATE_PRODUCTS);
             db.execSQL(DATABASE_CREATE_LISTS);
+            db.execSQL(DATABASE_CREATE_COMMANDE);
         }
 
         @Override
