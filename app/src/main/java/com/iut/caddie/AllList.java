@@ -26,7 +26,7 @@ public class AllList extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_all_list);
-
+        setTitle("Vos listes de courses");
         //Ouverture et instanciation de la BDD
         bdd = new DbAdapter(this);
         bdd.open();
