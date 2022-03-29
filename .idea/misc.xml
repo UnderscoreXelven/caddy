@@ -3,8 +3,10 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/pleca/Desktop/Travail/annee2/ProjetMobile/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.146" />
         <entry key="..\:/Users/pleca/Desktop/Travail/annee2/ProjetMobile/app/src/main/res/layout/activity_list.xml" value="0.25416666666666665" />
-        <entry key="..\:/Users/pleca/Desktop/Travail/annee2/ProjetMobile/app/src/main/res/layout/activity_main.xml" value="0.4" />
+        <entry key="..\:/Users/pleca/Desktop/Travail/annee2/ProjetMobile/app/src/main/res/layout/activity_main.xml" value="0.2825520833333333" />
+        <entry key="..\:/Users/pleca/Desktop/Travail/annee2/ProjetMobile/app/src/main/res/menu/navigation_menu.xml" value="0.264" />
       </map>
     </option>
   </component>
