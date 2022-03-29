@@ -57,7 +57,9 @@ public class ProductsActivity extends AppCompatActivity {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
                     String title = products.get(position);
-                    System.out.println("Ajout du produit "+title+" pour la liste "+name);
+                    bdd.insertAA(name,title,1);
+                    startActivity(new Intent(ProductsActivity.this, AllList.class));
+
                 }
             });
 
@@ -122,6 +124,7 @@ public class ProductsActivity extends AppCompatActivity {
         switch(item.getItemId()) {
             case(R.id.remove_product):
                 bdd.deleteProduct(title);
+                fillData();
             default:
                 return false;
         }
