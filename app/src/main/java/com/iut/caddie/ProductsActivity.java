@@ -4,6 +4,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.database.Cursor;
 import android.os.Bundle;
+import android.view.ContextMenu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -17,6 +22,7 @@ public class ProductsActivity extends AppCompatActivity {
     private final List<String> products = new ArrayList<>();
 
     private ArrayAdapter<String> listAdapter;
+    private boolean addProduct;
 
     private DbAdapter bdd;
 
@@ -25,12 +31,17 @@ public class ProductsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_products);
         setTitle("Liste de produits");
-
+        addProduct = getIntent().getBooleanExtra("addProduct",false);
+        System.out.println(addProduct);
         listView = findViewById(R.id.listProducts);
 
         listAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1,products);
 
         listView.setAdapter(listAdapter);
+
+        if(addProduct){
+            registerForContextMenu(listView);
+        }
 
         bdd = new DbAdapter(this);
 
@@ -45,12 +56,26 @@ public class ProductsActivity extends AppCompatActivity {
         Cursor c = bdd.fetchAllProducts();
         c.moveToFirst();
         while(!c.isAfterLast()){
-            System.out.println("Coucou :)");
             products.add(c.getString(c.getColumnIndexOrThrow("produit")));
             c.moveToNext();
         }
         c.close();
-        System.out.println(products);
         listAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.context_menu, menu);
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+
+        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+        String title = listView.getItemAtPosition(info.position).toString();
+        System.out.println("Ajout du produit");
+        return true;
     }
 }

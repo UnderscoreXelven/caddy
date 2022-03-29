@@ -45,7 +45,9 @@ public class ListActivity extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-                products.remove(position);
+                final Intent intent = new Intent(ListActivity.this, ProductsActivity.class);
+                intent.putExtra("addProduct",true);
+                startActivity(intent);
                 listAdapter.notifyDataSetChanged();
             }
         });
