@@ -135,6 +135,11 @@ public class DbAdapter {
         mDb.insert(DATABASE_TABLE, null, initialValues);
     }
 
+    //Retourne l'id et le nom des listes de courses
+    public Cursor fetchList(){
+        return mDb.query("Lists", new String[] {"_id", "list"}, null, null, null, null, null);
+    }
+
     /**
      * Constructor - takes the context to allow the database to be
      * opened/created
