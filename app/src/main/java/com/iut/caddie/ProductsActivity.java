@@ -41,7 +41,7 @@ public class ProductsActivity extends AppCompatActivity {
 
     void fillData(){
         products.clear();
-        Cursor c = bdd.fetchAllNotes();
+        Cursor c = bdd.fetchAllProducts();
         c.moveToFirst();
         while(!c.isAfterLast()){
             System.out.println("Coucou :)");

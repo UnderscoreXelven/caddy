@@ -92,6 +92,7 @@ public class DbAdapter {
                 initialValues.put("produit", product);
                 db.insert(DATABASE_TABLE, null, initialValues);
             }
+            String row = "INSERT INTO Lists values(1,'Auchan');";
         }
 
         @Override
@@ -202,9 +203,8 @@ public class DbAdapter {
      *
      * @return Cursor over all notes
      */
-    public Cursor fetchAllNotes() {
-
-        return mDb.query(DATABASE_TABLE, new String[] {KEY_ROWID, KEY_TITLE}, null, null, null, null, null);
+    public Cursor fetchAllProducts() {
+        return mDb.query(DATABASE_TABLE, new String[] {"_id", "produit"}, null, null, null, null, "produit");
     }
 
     /**
