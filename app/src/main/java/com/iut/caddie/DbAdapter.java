@@ -52,14 +52,17 @@ public class DbAdapter {
     private static final String DATABASE_CREATE_PRODUCTS =
             "create table Products (_id integer primary key autoincrement, "
                     + "produit text not null);";
+
     private static final String DATABASE_CREATE_LISTS =
             "create table Lists (_id integer primary key autoincrement, "
-                    + "list_name text not null);";
+                    + "list text not null);";
+
     private static final String DATABASE_CREATE_COMMANDE =
-            "create table Lists (_id integer primary key autoincrement, "
+            "create table Commande (commandeId integer primary key, "
+                    + "productsId integer primary key,"
                     + "quantite int not null,"
                     + " FOREIGN KEY (listId) REFERENCES Lists(_id),"
-                    + " FOREIGN KEY (productsId) REFERENCES Products(_id))";
+                    + " FOREIGN KEY (productsId) REFERENCES Products(_id));";
 
     private static final String DATABASE_NAME = "data";
     private static final String DATABASE_TABLE = "notes";
@@ -98,12 +101,24 @@ public class DbAdapter {
      * insert produtcs data
      * @param array products data
      */
-    public void CreateProducts(String [] array){
+    public void createProducts(String [] array){
         for (String product: array) {
             ContentValues initialValues = new ContentValues();
-            initialValues.put(KEY_TITLE, product);
+            initialValues.put("produit", product);
             mDb.insert(DATABASE_TABLE, null, initialValues);
         }
+    }
+
+    public void createCommande(String commandeName){
+        ContentValues initialValues = new ContentValues();
+        initialValues.put("commandeName", commandeName);
+        mDb.insert(DATABASE_TABLE, null, initialValues);
+    }
+
+    public void insertProductsInCommande(int commandeId,int productsId){
+        ContentValues initialValues = new ContentValues();
+        initialValues.put(KEY_TITLE, commandeId);
+        mDb.insert(DATABASE_TABLE, null, initialValues);
     }
 
     /**
